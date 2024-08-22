@@ -1,5 +1,6 @@
 import { ApiPromise, WsProvider } from "@polkadot/api";
-const provider = new WsProvider("ws://78.46.41.94:9987");
+import { websocket_url } from "./config";
+const provider = new WsProvider(websocket_url);
 
 const sections = { committeeManagement: "committeeManagement" };
 
