@@ -28,7 +28,7 @@ async function main() {
       if (sections[event.section]) {
         console.log(event.toHuman());
 
-        console.log(event);
+        //  console.log(event);
       }
     });
   });
