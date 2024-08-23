@@ -1,8 +1,7 @@
 import { ApiPromise, WsProvider } from "@polkadot/api";
 import { websocket_url } from "./config/index.js";
+import { sections } from "./constants/index.js";
 const provider = new WsProvider(websocket_url);
-
-const sections = { committeeManagement: "committeeManagement" };
 
 async function main() {
   // Create our API with a default connection to the local node
@@ -28,7 +27,10 @@ async function main() {
       if (sections[event.section]) {
         console.log(event.toHuman());
 
-        //  console.log(event);
+        const eventData = event.toHuman();
+
+        // console.log(event);
+        console.log(eventData.data);
       }
     });
   });
