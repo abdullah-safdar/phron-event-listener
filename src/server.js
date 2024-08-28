@@ -12,10 +12,12 @@ async function main() {
     console.log(`\nReceived ${events.length} events:`);
 
     // Loop through the Vec<EventRecord>
-    events.forEach((record) => {
+    events.forEach(async (record) => {
       // Extract the phase, event and the event types
       const { event, phase } = record;
       const types = event.typeDef;
+
+      // console.log(event);
 
       //   {
       //     method: 'RequiresDecision',
@@ -24,17 +26,29 @@ async function main() {
       //     data: { forSession: '557' }
       //   }
 
+      // console.log(event.toHuman());
+      //console.log(event);
       if (sections[event.section]) {
-        console.log(event.toHuman());
-
-        const eventData = event.toHuman();
-
-        // console.log(event);
-        console.log(eventData.data);
+        if (event.method === "RequiresDecision") {
+          const resp = await fetch(" http://142.132.144.174:5000/AI_extrinsic");
+          const result = await resp.json();
+          if (result === 1) {
+            console.log("The require decision has been passed");
+          } else {
+            console.log("The require decision has been FAILED!!!");
+          }
+        }
       }
     });
   });
 }
+
+// {
+//   method: 'SophiaDecisionAccepted',
+//   section: 'elections',
+//   index: '0x0c01',
+//   data: [ { reserved: [Object], nonReserved: [Object] } ]
+// }
 
 main().catch((error) => {
   console.error(error);
