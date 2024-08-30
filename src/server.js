@@ -34,13 +34,14 @@ async function main() {
             console.log("RequiresDecision");
             try {
               const resp = await fetch(
-                "http://142.132.144.174:5000/AI_extrinsic"
+                "http://142.132.144.174:5000/Call_Extrinsic"
               );
               const result = await resp.json();
               console.log("result", result);
-              if (result === 1) {
+              if (result["Response_Type"] == 1) {
                 console.log("The require decision has been passed");
-              } else {
+              }
+              if (result["Response_Type"] == 0) {
                 console.log("The require decision has been FAILED!!!");
               }
             } catch (error) {
